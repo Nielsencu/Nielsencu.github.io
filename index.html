@@ -1,9 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="refresh" content="0; url=https://your-real-project-page.com">
-</head>
-<body>
-<p>Redirecting… if nothing happens, <a href="https://your-real-project-page.com">click here</a>.</p>
-</body>
-</html>
+---
+layout: default
+---
+
+<div class="row flex-column-reverse flex-md-row py-2">
+    <div class="col-md-8" id="bio">
+        I am a Master's student in Computer Science, concurrently studying at the University of British Columbia and ETH Zurich. My research focuses on robot learning with perception for manipulation, and I am currently supervised by Prof. Kelsey Allen.
+        I am particularly interested in the Material Point Method (MPM), specifically differentiable MPM, and its applications to deformable object manipulation.
+        <p style="text-align:center">
+            <a target="_blank" href="https://mailhide.io/">Email</a> &nbsp;/&nbsp;
+            <a href="https://github.com/">GitHub</a> &nbsp;/&nbsp;
+            <a href="https://twitter.com/">Twitter</a> &nbsp;/&nbsp;
+            <a href="https://scholar.google.com/citations?user=">Google Scholar</a> &nbsp;/&nbsp;
+            <a href="https://www.linkedin.com/in/">LinkedIn </a>
+        </p>
+    </div>
+    <div class="col-md-4" style="z-index:4;">
+        <img alt="profile photo" id="portrait" src="images/portrait.jpg">
+    </div>
+</div>
+
+{% include publications.html %}
