@@ -1,7 +1,7 @@
-# ICVSS 2026 Poster: Generalizable Dynamics Models for Deformable Objects
+# SGP 2026 Poster: Generalizable Dynamics Models for Deformable Objects
 
-Project page for the ICVSS 2026 poster "Generalizable Dynamics Models for Deformable Objects:
-Tool-Agnostic Model for Tool Geometry Design" (Cugito &amp; Allen), also presented at the
+Project page for the poster "Generalizable Dynamics Models for Deformable Objects:
+Tool-Agnostic Model for Tool Geometry Design" (Cugito &amp; Allen), presented at the
 Eurographics Symposium on Geometry Processing (SGP) 2026 / Computer Graphics Forum, Vol. 45 (2026), No. 5.
 
 Content lives in `index.html`; assets (figures, the 2-page abstract, the poster PDF, and the
