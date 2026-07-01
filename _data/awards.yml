@@ -1,0 +1,5 @@
+# Each entry: year + text (optional url makes part of the row a link)
+# Edit this list directly -- rendered in _includes/misc.html
+- year: 2025
+  text: MSc at UBC
+  url:

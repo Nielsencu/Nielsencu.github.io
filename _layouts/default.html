@@ -7,6 +7,7 @@
   <!-- The above meta tags must come first -->
 
   <meta name="author" content="{{ site.name }}" />
+  <meta name="description" content="{{ site.description }}" />
   <title>{{ site.name }}</title>
 
   <!-- Bootstrap CSS 4.6.0, never versions fail to load -->
@@ -20,8 +21,6 @@
 </head>
 
 <body class="d-flex flex-column">
-  {% include navigation.html %}
-
   <div class="container-fluid flex-fill">
     {{ content }}
   </div>

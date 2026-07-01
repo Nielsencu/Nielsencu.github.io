@@ -21,6 +21,14 @@ $('div.publication').hover(
         }
     });
 
+$('a.section-tab').click(function(event){
+    event.preventDefault();
+    $('a.section-tab').removeClass('active');
+    $('.tab-pane').removeClass('active');
+    $(this).addClass('active');
+    $('#' + $(this).data('target')).addClass('active');
+});
+
 $('button.copy-btn').click(function(){
     var parent = $(this).parent();
     var modal = $(parent).parent();

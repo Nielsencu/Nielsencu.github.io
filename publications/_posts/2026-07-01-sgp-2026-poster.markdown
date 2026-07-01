@@ -4,7 +4,7 @@ date:   2026-07-01 09:00:00 +00:00
 image: /publications/images/sgp2026-teaser.png
 author: "Nielsen Cugito"
 authors: "<strong>Nielsen Cugito</strong>, Kelsey R. Allen"
-venue: "Eurographics Symposium on Geometry Processing (SGP), Computer Graphics Forum Vol. 45, No. 5"
+venue: "Eurographics Symposium on Geometry Processing"
 bib: |
   @article{cugito2026generalizable,
     author  = {Cugito, Nielsen and Allen, Kelsey R.},
@@ -15,9 +15,8 @@ bib: |
     year    = {2026},
     note    = {Proceedings of the Eurographics Symposium on Geometry Processing (SGP) 2026},
   }
-page_url: /icvss-2026-poster/
 links:
-  abstract: /icvss-2026-poster/static/pdfs/abstract.pdf
-  poster: /icvss-2026-poster/static/pdfs/poster.pdf
+  Abstract: https://diglib.eg.org/items/6f6300ea-33e9-4e49-8843-0bf26c929fb2
+  Project Page: /icvss-2026-poster/
 ---
 Tool-Agnostic Model for Tool Geometry Design. A single GNN dynamics model, learned from real RGB-D tool&ndash;dough interactions, generalizes to unseen tool geometries and is differentiable enough to drive tool shape optimization.

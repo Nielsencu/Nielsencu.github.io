@@ -1,0 +1,8 @@
+{% for item in site.data.awards %}
+<div class="row py-1">
+    <div class="col-2 col-md-1">{{ item.year }}</div>
+    <div class="col-10 col-md-11">
+        {% if item.url %}<a href="{{ item.url }}">{{ item.text }}</a>{% else %}{{ item.text }}{% endif %}
+    </div>
+</div>
+{% endfor %}
