@@ -1,10 +1,10 @@
 ---
-title:  "Generalizable Dynamics Models for Deformable Objects"
+title:  "Generalizable Dynamics Models for Deformable Objects: Tool-Agnostic Model for Tool Geometry Design"
 date:   2026-07-01 09:00:00 +00:00
 image: /publications/images/sgp2026-teaser.png
 author: "Nielsen Cugito"
 authors: "<strong>Nielsen Cugito</strong>, Kelsey R. Allen"
-venue: "Eurographics Symposium on Geometry Processing"
+venue: "Eurographics Symposium on Geometry Processing (SGP)"
 bib: |
   @article{cugito2026generalizable,
     author  = {Cugito, Nielsen and Allen, Kelsey R.},
