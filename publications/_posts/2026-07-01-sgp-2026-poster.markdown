@@ -1,0 +1,23 @@
+---
+title:  "Generalizable Dynamics Models for Deformable Objects"
+date:   2026-07-01 09:00:00 +00:00
+image: /publications/images/sgp2026-teaser.png
+author: "Nielsen Cugito"
+authors: "<strong>Nielsen Cugito</strong>, Kelsey R. Allen"
+venue: "Eurographics Symposium on Geometry Processing (SGP), Computer Graphics Forum Vol. 45, No. 5"
+bib: |
+  @article{cugito2026generalizable,
+    author  = {Cugito, Nielsen and Allen, Kelsey R.},
+    title   = {Generalizable Dynamics Models for Deformable Objects: Tool-Agnostic Model for Tool Geometry Design},
+    journal = {Computer Graphics Forum},
+    volume  = {45},
+    number  = {5},
+    year    = {2026},
+    note    = {Proceedings of the Eurographics Symposium on Geometry Processing (SGP) 2026},
+  }
+page_url: /icvss-2026-poster/
+links:
+  abstract: /icvss-2026-poster/static/pdfs/abstract.pdf
+  poster: /icvss-2026-poster/static/pdfs/poster.pdf
+---
+Tool-Agnostic Model for Tool Geometry Design. A single GNN dynamics model, learned from real RGB-D tool&ndash;dough interactions, generalizes to unseen tool geometries and is differentiable enough to drive tool shape optimization.
