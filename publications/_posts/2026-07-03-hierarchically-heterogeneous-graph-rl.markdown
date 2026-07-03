@@ -1,6 +1,6 @@
 ---
 title:  "Hierarchically Heterogeneous Graph Reinforcement Learning for Decentralized Multi-Agent Coordination with Personality Adaptation"
-date:   2026-07-03 09:00:00 +00:00
+date:   2026-06-03 09:00:00 +00:00
 image: /publications/images/project-image.jpg
 author: "Nielsen Cugito"
 authors: "Yu Zhai, Zhe Liu, <strong>Nielsen Cugito</strong>, Xingyao Han, Yanzi Miao, Hesheng Wang"

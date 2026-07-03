@@ -23,6 +23,8 @@
             {% endif %}
             {% endif %}
         </div>
+        {% elsif post.authors %}
+        <div class="publication-authors">{{ post.authors }}</div>
         {% endif %}
         <em>{{ post.venue }} {{ post.date | date: "%Y" }}</em>
         <br>
