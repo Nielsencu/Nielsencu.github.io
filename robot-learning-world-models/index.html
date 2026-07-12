@@ -1,0 +1,78 @@
+---
+layout: default
+title: Robot Learning World Models
+description: 1st place at the World Models track for the Robot Learning course.
+---
+
+<div class="row py-3">
+    <div class="col-md-12">
+        <a href="{{ site.baseurl }}/">&larr; Back home</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <h2 id="title">{{ page.title }}</h2>
+        <p class="text-muted">
+            1st place at the World Models track for the <a href="https://cvg.ethz.ch/lectures/Robot-Learning/" target="_blank" rel="noopener">Robot Learning course</a>. Presented as part of the <a href="https://vreai.ch/" target="_blank" rel="noopener">Vision and Robotics for Embodied AI Conference</a> in a public event hosted at ETH Zurich RobotX hall.
+        </p>
+
+        <hr>
+
+        <h4>Overview</h4>
+        <p>
+        Following <a href="https://mimic-video.github.io/" target="_blank" rel="noopener">mimic-video</a>, here we fine tuned the massive video backbone model using 2B-parameter Cosmos-Predict2 on our own dataset. We realized that LoRA fine-tuning is necessary since the dynamics of the pretrained Cosmos video model does not generalize well to our dataset. Then, we train a lightweight action decoder on the latent representations of the fine-tuned video model to generate the action chunk. Each task, e.g. pushing a polyhedron or a cube, in a straight line or around an obstacle, is encoded as a prompt specified in natural language.
+        </p>
+
+        <h4>Video</h4>
+        <!-- Muted autoplay loops (browsers block autoplay-with-sound); controls allow replay/pause. -->
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 text-center">
+                <figure class="figure w-100">
+                    <video autoplay muted loop playsinline controls class="img-fluid rounded">
+                        <source src="{{ site.baseurl }}/robot-learning-world-models/static/videos/bluecube.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption class="figure-caption mt-2">Pushing blue cube in a straight line to goal circle</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 text-center">
+                <figure class="figure w-100">
+                    <video autoplay muted loop playsinline controls class="img-fluid rounded">
+                        <source src="{{ site.baseurl }}/robot-learning-world-models/static/videos/bluecube_withobs.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption class="figure-caption mt-2">Pushing blue cube to goal circle around the red obstacle</figcaption>
+                </figure>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 text-center">
+                <figure class="figure w-100">
+                    <video autoplay muted loop playsinline controls class="img-fluid rounded">
+                        <source src="{{ site.baseurl }}/robot-learning-world-models/static/videos/polyhedral.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption class="figure-caption mt-2">Pushing polyhedral object (chaotic system) to goal circle around the red obstacle</figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <h4>Predicted Video Plan vs Actual Execution (sped up by 2x)</h4>
+        <figure class="figure w-100 text-center">
+            <video id="predicted-video" autoplay muted loop playsinline controls class="img-fluid rounded">
+                <source src="{{ site.baseurl }}/robot-learning-world-models/static/videos/predicted_and_executed.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </figure>
+        <script>
+            (function () {
+                var v = document.getElementById('predicted-video');
+                if (!v) return;
+                v.defaultPlaybackRate = 2.0;
+                var setRate = function () { v.playbackRate = 2.0; };
+                v.addEventListener('loadedmetadata', setRate);
+                v.addEventListener('play', setRate);
+                setRate();
+            })();
+        </script>
+    </div>
+</div>
