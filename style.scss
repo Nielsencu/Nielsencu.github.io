@@ -97,9 +97,10 @@ span.highlight {
 }
 
 #name {
-  text-align: left;
-  font-weight: bold;
-  font-size: 3.5rem;
+  text-align: center;
+  font-weight: normal;
+  font-size: 3.0rem;
+  margin-bottom: 1rem;
 }
 
 .section-tab {
@@ -170,8 +171,10 @@ body {
 
 body {
   div.container-fluid {
-    max-width: 1300px;
+    max-width: 1200px;
     padding-top: 5rem;
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
   }
 }
 
