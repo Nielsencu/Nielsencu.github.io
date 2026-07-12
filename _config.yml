@@ -17,7 +17,7 @@ avatar: images/portrait.jpg
 
 # Used by index.html to build the Email / GitHub / LinkedIn / Scholar links
 footer-links:
-  email: ncugito@cs.ubc.ca
+  email: ncugito@ethz.ch
   github: Nielsencu
   scholar: https://scholar.google.com/citations?user=WfwyCj4AAAAJ&hl=en
   linkedin: in/nielsencugito
