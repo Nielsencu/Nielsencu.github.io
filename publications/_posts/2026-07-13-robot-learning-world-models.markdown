@@ -1,6 +1,7 @@
 ---
 title:  "Fine-tuning Video World Models for Robot Manipulation"
 date:   2026-07-13 09:00:00 +00:00
+permalink: /publications/robot-learning-world-models/
 group: projects
 image: /publications/images/robot-learning-world-models.png
 author: "Nielsen Cugito"
