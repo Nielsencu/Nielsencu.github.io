@@ -169,8 +169,8 @@
           </video>
           <p style="margin-top: 1rem;">
             Dough and tool point clouds are fused from a multi-view depth camera setup as a robot arm
-            manipulates dough with different 3D-printed tools &mdash; no simulator and no
-            point-to-point correspondences over time.
+            manipulates dough with a variety of 3D-printed tools &mdash; grippers, rollers, and
+            presses &mdash; with no simulator and no point-to-point correspondences over time.
           </p>
         </div>
       </div>
@@ -197,6 +197,13 @@
             it contains no absolute positions &mdash; which improves generalization. The model is
             trained with a Chamfer Distance + Earth Mover's Distance loss, rolled out over multiple
             future timesteps to stabilize long-horizon predictions.
+          </p>
+          <p>
+            To sharpen tool&ndash;dough contact, each dough particle carries a per-particle tool
+            signed-distance (SDF) feature that encodes the local tool surface. Two augmentations make
+            the model robust across tool geometries: jittering the tool connectivity radius, and
+            pushing dough particles out of the tool along SDF gradients to synthesize
+            penetration-recovery examples.
           </p>
         </div>
       </div>
@@ -239,8 +246,8 @@
         <h2 class="title is-3">Generalization to Unseen Tools</h2>
         <div class="content has-text-justified">
           <p>
-            Trained only on push and pinch tools, the multi-tool model is evaluated on two tool
-            geometries it never saw during training.
+            Trained only on pinching grippers, the model is evaluated on two tool geometries it
+            never saw during training.
           </p>
         </div>
       </div>
@@ -266,33 +273,39 @@
       <div class="column is-full-width">
         <h2 class="title is-3">Quantitative Evaluation</h2>
         <div class="content">
-          <p>Metrics (mm, averaged over 30 test rollouts): Chamfer Distance (CD), Earth Mover's
-            Distance (EMD), Hausdorff Distance (HD), and signed-distance penetration (SDF).</p>
+          <p>All metrics in millimetres, lower is better: Chamfer Distance (CD), Earth Mover's
+            Distance (EMD), Hausdorff Distance (HD), and signed-distance penetration (SDF).
+            <b>[1]</b> is the <a href="https://arxiv.org/abs/2306.14447">RoboCook</a>
+            baseline (Shi et al., 2023).</p>
 
-          <h3 class="title is-5">In-distribution (tested on a held-in tool)</h3>
+          <h3 class="title is-5">Multi-tool training improves in-distribution</h3>
           <table class="table is-bordered is-striped is-narrow is-fullwidth">
             <thead>
               <tr><th># Train tools</th><th>CD &darr;</th><th>EMD &darr;</th><th>HD &darr;</th><th>SDF &darr;</th></tr>
             </thead>
             <tbody>
-              <tr><td>1 tool</td><td>6.08</td><td>4.65</td><td>16.77</td><td>32.90</td></tr>
-              <tr><td>2 tools</td><td><b>5.73</b></td><td><b>4.02</b></td><td>15.24</td><td>29.28</td></tr>
-              <tr><td>3 tools</td><td>5.74</td><td>4.20</td><td><b>14.36</b></td><td><b>22.76</b></td></tr>
+              <tr><td>1 gripper <b>[1]</b></td><td>3.44</td><td>2.42</td><td>9.71</td><td>0.99</td></tr>
+              <tr><td>grippers</td><td>3.56</td><td>2.33</td><td>9.60</td><td>0.53</td></tr>
+              <tr><td>grippers + rollers</td><td>3.49</td><td>2.23</td><td>9.40</td><td>0.91</td></tr>
+              <tr><td>grippers + rollers + presses</td><td><b>3.24</b></td><td><b>2.22</b></td><td><b>9.31</b></td><td><b>0.55</b></td></tr>
             </tbody>
           </table>
+          <p>Evaluated on a held-in gripper (tool&nbsp;3). Training on more tool types yields the best
+            distance metrics (CD, EMD, HD) while keeping tool&ndash;dough penetration low.</p>
 
-          <h3 class="title is-5">Out-of-distribution (tested on a completely unseen tool)</h3>
+          <h3 class="title is-5">Out-of-distribution generalization on a held-out shape</h3>
           <table class="table is-bordered is-striped is-narrow is-fullwidth">
             <thead>
               <tr><th># Train tools</th><th>CD &darr;</th><th>EMD &darr;</th><th>HD &darr;</th><th>SDF &darr;</th></tr>
             </thead>
             <tbody>
-              <tr><td>1 tool</td><td><b>7.13</b></td><td>6.39</td><td>23.5</td><td>20.72</td></tr>
-              <tr><td>2 tools</td><td>7.25</td><td><b>6.37</b></td><td><b>20.51</b></td><td><b>17.46</b></td></tr>
+              <tr><td>1 gripper</td><td>3.44</td><td>2.42</td><td>9.71</td><td>0.98</td></tr>
+              <tr><td>all tool types <b>[1]</b></td><td>3.86</td><td>2.75</td><td>11.95</td><td>1.87</td></tr>
+              <tr><td>all tool types (ours)</td><td><b>3.67</b></td><td><b>2.67</b></td><td><b>11.07</b></td><td><b>0.31</b></td></tr>
             </tbody>
           </table>
-          <p>Training on more tools improves shape reconstruction and reduces tool&ndash;dough
-            penetration on both in-distribution and out-of-distribution tools.</p>
+          <p>On a held-out shape, our multi-tool model improves reconstruction over the RoboCook
+            baseline and cuts tool&ndash;dough penetration (SDF) by roughly 6&times;.</p>
         </div>
       </div>
     </div>
@@ -302,12 +315,21 @@
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Tool Shape Optimization Results</h2>
-        <div class="content has-text-centered">
-          <img src="./static/images/tool_shape_opt.png" alt="Ground truth tool, inflated tool, and optimized tool shape interacting with the dough, before and after optimization">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <img src="./static/images/tool_shape_opt_before_v2.png" alt="Inflated tool interacting with the dough before optimization">
+            <p>Before optimization &mdash; inflated tool</p>
+          </div>
+          <div class="column has-text-centered">
+            <img src="./static/images/tool_shape_opt_after_v2.png" alt="Optimized tool interacting with the dough after optimization">
+            <p>After optimization &mdash; recovered tool</p>
+          </div>
+        </div>
+        <div class="content">
           <p class="has-text-justified">
-            <b>Inflate-then-recover.</b> We inflate a ground-truth tool <em>(left pair)</em> and check
-            whether optimization can recover the original shape. The optimized tool <em>(right pair,
-            highlighted)</em> shrinks back almost exactly where it contacts the dough.
+            <b>Inflate-then-recover.</b> We inflate a ground-truth tool <em>(left)</em> and check
+            whether optimization can recover the original shape. The optimized tool <em>(right)</em>
+            shrinks back almost exactly where it contacts the dough <em>(red box)</em>.
           </p>
         </div>
 
@@ -391,8 +413,8 @@
         <h2 class="title is-3">Conclusion</h2>
         <div class="content has-text-justified">
           <ul>
-            <li>Multi-tool training, with noise injection into tool particle histories, generalizes to
-              unseen tool geometries.</li>
+            <li>Multi-tool training, together with a per-particle tool SDF feature and
+              penetration/connectivity augmentations, generalizes to unseen tool geometries.</li>
             <li>Improved shape reconstruction and fewer tool&ndash;dough interpenetrations on real
               data.</li>
             <li>A differentiable dynamics model enables high-dimensional tool-shape design, without
@@ -405,6 +427,104 @@
 
   </div>
 </section>
+
+
+<!-- More OOD shape generalization on custom tools. -->
+<style>
+  .demo-embed {
+    position: relative; width: 100%; height: 600px; overflow: hidden;
+    border: 1px solid #dde3ea; border-radius: 6px; background: #fafbfc; cursor: pointer;
+  }
+  .demo-embed.is-loaded { cursor: default; background: #fff; }
+  .demo-placeholder {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100%; padding: 1rem; text-align: center; color: #4a4a4a; transition: background .15s;
+  }
+  .demo-embed:hover .demo-placeholder { background: #eef3f8; }
+  .demo-embed:focus { outline: 2px solid #3273dc; outline-offset: 2px; }
+  .demo-title { font-weight: 600; margin-top: .5rem; }
+  .demo-hint { font-size: .85rem; color: #7a7a7a; }
+</style>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">More OOD Shape Generalization on Custom Tools</h2>
+        <div class="content has-text-justified">
+          <p>
+            Predicted rollouts on four hand-designed tools, none of which appear during training.
+            The viewer is interactive &mdash; rotate the scene and step through the predicted dough
+            dynamics. Pick a tool below; it loads on click to keep the page light.
+          </p>
+        </div>
+
+        <div class="field has-text-centered" style="margin-bottom: 1rem;">
+          <div class="select is-rounded">
+            <select id="demo-select" aria-label="Choose a custom tool rollout">
+              <option value="./static/demos/circlepress_half.html">Circle Press (Half)</option>
+              <option value="./static/demos/vcutter.html">V Cutter</option>
+              <option value="./static/demos/knifeupsidedown.html">Knife (Upside Down)</option>
+              <option value="./static/demos/circlecutter.html">Circle Cutter</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="demo-embed" id="demo-panel" role="button" tabindex="0">
+          <div class="demo-placeholder">
+            <span class="icon is-large"><i class="fas fa-play-circle fa-2x"></i></span>
+            <p class="demo-title" id="demo-panel-title">Circle Press (Half)</p>
+            <p class="demo-hint">Click to load interactive rollout</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  (function () {
+    var sel = document.getElementById('demo-select');
+    var panel = document.getElementById('demo-panel');
+    if (!sel || !panel) return;
+
+    function currentLabel() {
+      return sel.options[sel.selectedIndex].text;
+    }
+
+    function render() {
+      var frame = document.createElement('iframe');
+      frame.src = sel.value;
+      frame.title = currentLabel();
+      frame.setAttribute('frameborder', '0');
+      frame.style.cssText = 'width:100%;height:100%;border:0;display:block;';
+      panel.innerHTML = '';
+      panel.classList.add('is-loaded');
+      panel.removeAttribute('role');
+      panel.removeAttribute('tabindex');
+      panel.appendChild(frame);
+    }
+
+    function load() {
+      if (panel.dataset.loaded) return;
+      panel.dataset.loaded = '1';
+      render();
+    }
+
+    panel.addEventListener('click', load);
+    panel.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); load(); }
+    });
+
+    sel.addEventListener('change', function () {
+      if (panel.dataset.loaded) {
+        render();
+        return;
+      }
+      var title = document.getElementById('demo-panel-title');
+      if (title) title.textContent = currentLabel();
+    });
+  })();
+</script>
+<!--/ More OOD shape generalization on custom tools. -->
 
 
 <section class="section">
