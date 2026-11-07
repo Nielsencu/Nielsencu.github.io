@@ -1,5 +1,5 @@
 ---
-title:  "Learned Differentiable Physics for Planning with and Designing Deformable-Manipulation Tools"
+title:  "Learned Differentiable Physics for Deformable-Manipulation Tool Design"
 date:   2026-09-16 09:00:00 +00:00
 image: /publications/images/sgp2026-teaser.png
 author: "Nielsen Cugito"
